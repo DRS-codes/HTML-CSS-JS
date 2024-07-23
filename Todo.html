@@ -1,0 +1,114 @@
+<html>
+<head>
+<title>ToDo List App</title>
+<style>
+
+
+button {
+  text-decoration: none;
+  position: relative;
+  border: none;
+  font-size: 14px;
+  font-weight: 900;
+  font-family: inherit;
+  cursor: pointer;
+  color: #fff;
+  width: 2cm;
+  height: 1.5cm;
+  line-height: 2em;
+  text-align: center;
+  background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+  background-size: 300%;
+  border-radius: 8px;
+  z-index: 1;
+  margin-left: 1cm;
+}
+
+input{
+  width: 10cm;
+  height: 1.5cm;
+  border-radius: 8px;
+  border: 2px solid hsl(236, 92%, 66%);
+  outline: none;
+  transition: 200ms ease-in;
+  padding-left: 1rem;
+  font-size: 24px;
+ color: hsl(236, 92%, 66%);
+}
+
+input:focus {
+  border-bottom: 4px solid hsl(236, 92%, 66%);
+  padding-top: 2px;
+}
+
+input::placeholder {
+  color: hsl(236, 92%, 66%);
+  opacity: 0.5;
+}
+
+li {
+  width: max-content;
+  height: 1.5cm;
+  border: 3px solid hsl(236, 92%, 66%);
+  border-radius: 10px;
+  background-color: transparent;
+  color: hsl(236, 92%, 66%);
+  font-size: 20px;
+  font-weight: 900;
+  padding: 0.2cm;
+  margin-top: 1cm;
+}
+
+::placeholder {
+  color: hsla(236, 92%, 66%, 0.445);
+}
+
+taskList{
+width: 10cm;
+display: flex;
+}
+
+h1{
+color: hsl(236, 92%, 66%);
+}
+</style>
+</head>
+<body>
+<h1>My ToDo List</h1>
+<input type="text" id="taskInput" placeholder="Add new task">
+<button id="addTaskBtn">Add</button>
+<ul id="taskList" type="none"></ul>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+
+const taskInput = document.getElementById('taskInput');
+const addTaskBtn = document.getElementById('addTaskBtn');
+const taskList = document.getElementById('taskList');
+
+addTaskBtn.addEventListener('click', function(){
+
+const taskText = taskInput.value.trim();
+if(taskText !== ''){
+
+const taskItem = document.createElement('li');
+taskItem.className = 'task-Item';
+taskItem.innerHTML = `${taskText}
+<button class="delete-btn">Delete</button>
+`;
+
+taskList.appendChild(taskItem);
+taskInput.value = '';
+}
+});
+
+taskList.addEventListener('click', function(event){
+if(event.target.classList.contains('delete-btn')){
+const taskItem = event.target.parentElement;
+taskItem.remove();
+}
+});
+});
+</script>
+</body>
+</html>
