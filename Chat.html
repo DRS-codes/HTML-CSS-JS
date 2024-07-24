@@ -1,0 +1,102 @@
+<html>
+<head>
+<title>Chat App</title>
+<style>
+
+input {
+  width: 9cm;
+  height: 1.5cm;
+  border-color: crimson;
+  background-image: linear-gradient(crimson, rgb(231, 142, 161), white);
+  margin-bottom: 0.3cm;
+  margin-top: 0.3cm;
+  color: crimson;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+button {
+  cursor: pointer;
+  height: 1.5cm;
+  width: 4cm;
+  background-color: crimson;
+ margin-bottom: 1cm;
+box-shadow: 5px 5px 20px white, inset 5px 5px 20px black;
+border: transparent;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.message{
+flex: 1;
+overflow-y: auto;
+}
+
+.message.sender1{
+width: 5cm;
+margin-right: -3cm;
+word-wrap: break-word;
+background-color: white;
+margin-top: 0.3cm;
+  font-weight: 700;
+  font-size: 20px;
+}
+.message.sender2{
+width: 5cm;
+margin-left: -3cm;
+word-wrap: break-word;
+background-color: white;
+margin-top: 0.3cm;
+  font-weight: 700;
+  font-size: 20px;	
+}
+
+.messageContainer{
+width: 9cm;
+height: 13cm;
+background-color: crimson;
+box-shadow: 5px 5px 20px black;
+display: flex;
+flex-direction: column;
+overflow: hidden;
+}
+
+h3{
+color: white;
+}
+
+</style>
+</head>
+<body>
+<center>
+<div class="messageContainer">
+<div class="message" id="message">
+<h3>You can start the conversation</h3>
+</div>
+</div>
+
+<input type="text" id="messageInput" placeholder="Type your message..."><br>
+
+<button onclick="sendMessage('sender1')">Sender1</button>
+<button onclick="sendMessage('sender2')">Sender2</button>
+</center>
+<script>
+function sendMessage(sender){
+
+const messageInput = document.getElementById('messageInput');
+const message = document.getElementById('message');
+
+const messageText = messageInput.value.trim();
+if(messageText !== ''){
+const messageElement = document.createElement('div');
+messageElement.classList.add('message', sender);
+messageElement.innerText = messageText;
+
+message.appendChild(messageElement);
+messageInput.value = '';
+message.scrollTop = message.scrollHeight;
+}
+}
+</script>
+</body>
+</html>
