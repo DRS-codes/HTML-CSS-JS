@@ -1,0 +1,78 @@
+<html>
+<head>
+<title>Weather App</title>
+<style>
+*{
+padding: 0.2cm;
+}
+.input{
+align-items: center;
+justify-content: center;
+display: flex;
+border-radius: 40px;
+}
+.city{
+border-radius: 40px;
+border: none;
+width: 7cm;
+}
+.Weather_data{
+align-items: center;
+justify-content: center;
+background-image: linear-gradient(rgb(220, 220, 252), rgb(121, 121, 197));
+height: 10cm;
+width: 10cm;
+}
+.Weather_data button{
+height: 1cm;
+width: 1cm;
+align-items: center;
+justify-content: center;
+display: flex;
+margin-left: 0.2cm;
+border-radius: 50%;
+border: none;
+}
+.temperature, .humidity, .wind{
+font-size: 1cm;
+margin-top: -1cm;
+}
+h1{
+margin-top: 0.2cm;
+}
+</style>
+</head>
+<body>
+<center>
+<div class="Weather_data">
+<div class="input">
+<input type="text" class="city" placeholder="Enter city name...">
+<button><img src="search.png" height="100%"></button>
+</div>
+<img src="" class="weatherIcon">
+<h1>Temperature</h1><div class="temperature">
+</div>
+<h1>Humidity</h1><div class="humidity">
+</div>
+<h1>Wind</h1><div class="wind">
+</div>
+<script>
+const apiKey = "1dcdb4645c53f86b8ae35585a8a4674a";
+const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+const searchBox = document.querySelector('.input input');
+const searchBtn = document.querySelector('.input button');
+async function checkWeather(city){
+const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
+var data = await response.json();
+console.log(data);
+document.querySelector('.city').innerHTML = data.name;
+document.querySelector('.temperature').innerHTML = Math.round(data.main.temp) + ' °C';
+document.querySelector('.humidity').innerHTML = data.main.humidity + ' %';
+document.querySelector('.wind').innerHTML = data.wind.speed + ' km/h';
+}
+searchBtn.addEventListener('click', ()=>{
+checkWeather(searchBox.value);
+});
+</script>
+</body>
+</html>
