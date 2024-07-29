@@ -15,7 +15,11 @@
 
     saveButton.addEventListener('click', () => {
       const poem = poemTextarea.value;
-      localStorage.setItem('poem', poem);
+      if (!localStorage.getItem('poem')) {
+        localStorage.setItem('poem', poem);
+      } else {
+        alert('Poem already exists. Please contact the administrator to update the poem.');
+      }
     });
   </script>
 </body>
