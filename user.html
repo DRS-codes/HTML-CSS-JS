@@ -1,0 +1,20 @@
+<!-- user.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Page</title>
+</head>
+<body>
+  <h1>User Page</h1>
+  <div id="poem-container"></div>
+
+  <script>
+    const poemContainer = document.getElementById('poem-container');
+
+    const poem = localStorage.getItem('poem');
+    if (poem) {
+      poemContainer.innerText = poem;
+    }
+  </script>
+</body>
+</html>
