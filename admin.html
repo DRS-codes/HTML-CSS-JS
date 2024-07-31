@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .poem-container {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Panel</h1>
+    <input type="text" id="poem-title" placeholder="Poem Title"><br><br>
+    <textarea id="poem-content" placeholder="Poem Content" rows="10" cols="50"></textarea><br><br>
+    <button id="add-poem">Add Poem</button>
+    <div id="poem-list"></div>
+
+    <script>
+        // get elements
+        const poemTitle = document.getElementById('poem-title');
+        const poemContent = document.getElementById('poem-content');
+        const addPoemButton = document.getElementById('add-poem');
+        const poemList = document.getElementById('poem-list');
+
+        // load poems from local storage
+        let poems = JSON.parse(localStorage.getItem('poems')) || [];
+
+        // display poems
+        displayPoems();
+
+        // add event listener to add poem button
+        addPoemButton.addEventListener('click', () => {
+            const title = poemTitle.value.trim();
+            const content = poemContent.value.trim();
+            if (title && content) {
+                poems.push({ title, content });
+                localStorage.setItem('poems', JSON.stringify(poems));
+                displayPoems();
+                poemTitle.value = '';
+                poemContent.value = '';
+            }
+        });
+
+        // display poems
+        function displayPoems() {
+            poemList.innerHTML = '';
+            poems.forEach((poem, index) => {
+                const poemContainer = document.createElement('div');
+                poemContainer.className = 'poem-container';
+                poemContainer.innerHTML = `
+                    <h2>${poem.title}</h2>
+                    <pre>${poem.content}</pre>
+                    <button class="delete-poem" data-index="${index}">Delete</button>
+                `;
+                poemList.appendChild(poemContainer);
+            });
+        }
+
+        // add event listener to delete poem buttons
+        poemList.addEventListener('click', (event) => {
+            if (event.target.classList.contains('delete-poem')) {
+                const index = event.target.dataset.index;
+                poems.splice(index, 1);
+                localStorage.setItem('poems', JSON.stringify(poems));
+                displayPoems();
+            }
+        });
+    </script>
+</body>
+</html>

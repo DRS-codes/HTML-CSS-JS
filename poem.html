@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poem Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .poem-container {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Poem Viewer</h1>
+    <div id="poem-list"></div>
+
+    <script>
+        // get element
+        const poemList = document.getElementById('poem-list');
+
+        // load poems from local storage
+        let poems = JSON.parse(localStorage.getItem('poems')) || [];
+
+        // display poems
+        displayPoems();
+
+        // display poems
+        function displayPoems() {
+            poemList.innerHTML = '';
+            poems.forEach((poem) => {
+                const poemContainer = document.createElement('div');
+                poemContainer.className = 'poem-container';
+                poemContainer.innerHTML = `
+                    <h2>${poem.title}</h2>
+                    <pre>${poem.content}</pre>
+                `;
+                poemList.appendChild(poemContainer);
+            });
+        }
+    </script>
+</body>
+</html>
